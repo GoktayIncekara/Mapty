@@ -171,6 +171,24 @@ a:visited {
   display: none;
 }
 
+.reset__btn {
+  height: 50px;
+  width: auto;
+  margin-bottom: 25px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: var(--color-dark--1);
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.reset__btn-hidden {
+  display: none;
+}
+
 .copyright {
   margin-top: auto;
   font-size: 1.3rem;
