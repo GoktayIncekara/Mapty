@@ -7,6 +7,7 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const sortType = document.querySelector('.form__input--sort');
 const resetBtn = document.querySelector('.reset__btn');
 const saveBtn = document.querySelector('.save__btn');
 
@@ -98,6 +99,7 @@ class App {
     containerWorkouts.addEventListener('click', this.edit.bind(this));
     containerWorkouts.addEventListener('click', this.delete.bind(this));
     saveBtn.addEventListener('click', this.updateWorkout.bind(this));
+    sortType.addEventListener('change', this._sort.bind(this));
   }
 
   validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp));
@@ -294,7 +296,8 @@ class App {
   _getLocalStorage() {
     const workouts = JSON.parse(localStorage.getItem('workouts'));
     if (!workouts) return;
-    if (this.#workouts.length !== 0) {
+
+    if (workouts.length !== 0) {
       resetBtn.classList.remove('reset__btn-hidden');
     }
     workouts.forEach(workout =>
@@ -406,6 +409,25 @@ class App {
       localStorage.setItem('workouts', JSON.stringify(this.#workouts));
       location.reload();
     }
+  }
+
+  _sort() {
+    const type = sortType.value;
+
+    const compare = function (a, b) {
+      if (a[`${type}`] < b[`${type}`]) {
+        return -1;
+      }
+      if (a[`${type}`] > b[`${type}`]) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const sortedWorkouts = this.#workouts.sort(compare);
+    const workoutElements = document.querySelectorAll('.workout');
+    workoutElements.forEach(el => el.remove());
+    sortedWorkouts.forEach(workout => this._renderWorkout(workout));
   }
 }
 
