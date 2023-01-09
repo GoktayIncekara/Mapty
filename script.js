@@ -10,6 +10,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 const sortType = document.querySelector('.form__input--sort');
 const resetBtn = document.querySelector('.reset__btn');
 const saveBtn = document.querySelector('.save__btn');
+const errorText = document.querySelector('.error__text');
 
 class Workout {
   date = new Date();
@@ -170,8 +171,10 @@ class App {
         if (
           !this.validInputs(distance, duration, cadence) ||
           !this.allPositive(distance, duration, cadence)
-        )
-          return alert('Inputs have to be positive numbers!');
+        ) {
+          errorText.textContent = 'Inputs have to be positive numbers!';
+          return;
+        }
 
         workout = new Running([lat, lng], distance, duration, cadence);
       }
@@ -180,8 +183,10 @@ class App {
         if (
           !this.validInputs(distance, duration, elevation) ||
           !this.allPositive(distance, duration)
-        )
-          return alert('Inputs have to be positive numbers!');
+        ) {
+          errorText.textContent = 'Inputs have to be positive numbers!';
+          return;
+        }
 
         workout = new Cycling([lat, lng], distance, duration, elevation);
       }
@@ -193,6 +198,7 @@ class App {
       this._hideForm();
       this._setLocalStorage();
       resetBtn.classList.remove('reset__btn-hidden');
+      errorText.textContent = '';
     }
   }
 

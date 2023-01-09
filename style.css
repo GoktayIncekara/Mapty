@@ -50,7 +50,7 @@ button {
 
 /* SIDEBAR */
 .sidebar {
-  flex-basis: 50rem;
+  flex-basis: 51rem;
   background-color: var(--color-dark--1);
   padding: 3rem 3rem 4rem 3rem;
   display: flex;
@@ -214,6 +214,12 @@ button {
 
 .save__btn-hidden {
   display: none;
+}
+
+.error__text {
+  color: red;
+  align-self: center;
+  font-size: 15px;
 }
 
 .reset__btn {
